@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat — Chatbot{% endblock %}
+
+{% block header %}Chat{% endblock %}
+
+{% block content %}
+  <div class="chat-container">
+    <div class="chat-panel">
+      <div id="app"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    window.__INITIAL_TOKENS__ = {{ profile.tokens|default:0 }};
+  </script>
+  <!-- React & Babel for quick demo; replace with a build step for production -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <script type="text/babel" src="{% static 'core/js/chat.jsx' %}"></script>
+{% endblock %}

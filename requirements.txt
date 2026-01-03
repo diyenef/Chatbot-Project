@@ -1,0 +1,4 @@
+# Match the Django version detected in your environment
+Django==5.2.7
+requests==2.31.0
+# Add any other dependencies your project needs below

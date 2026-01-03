@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Chatbot Project{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/chat.css' %}">
+    <style>
+      /* Inline fallback styles to ensure the new layout appears even if static files aren't loaded */
+      .app-shell{display:flex;min-height:100vh}
+      .sidebar{width:240px;background:#0b1220;color:#e6eef8;padding:18px;flex-shrink:0}
+      .brand{font-weight:700;font-size:18px;margin-bottom:8px}
+      .nav a{display:block;color:inherit;text-decoration:none;padding:8px;border-radius:6px;margin:6px 0}
+      .main{flex:1;display:flex;flex-direction:column}
+      .topbar{padding:18px;border-bottom:1px solid #eef2f7}
+      .content{padding:24px}
+      .button{background:#10a37f;color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body class="app-body">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="brand">Chatbot</div>
+          <nav class="nav">
+            <a href="/">Home</a>
+            {% if user.is_authenticated %}
+              <a href="{% url 'core:chat' %}">Chat</a>
+              <a href="{% url 'core:profile' %}">Profile</a>
+              <a href="{% url 'logout' %}">Log out</a>
+            {% else %}
+              <a href="{% url 'login' %}">Log in</a>
+              <a href="{% url 'core:signup' %}">Sign up</a>
+            {% endif %}
+          </nav>
+        </div>
+        <div class="sidebar-footer">
+          <small>Prototype • Tokens: {% if user.is_authenticated %}{{ user.userprofile.tokens }}{% else %}-{% endif %}</small>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <h1 class="topbar-title">{% block header %}Chatbot Project{% endblock %}</h1>
+        </header>
+
+        <section class="content">
+          {% block content %}{% endblock %}
+        </section>
+      </main>
+    </div>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

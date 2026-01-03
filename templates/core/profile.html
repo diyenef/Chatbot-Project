@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile — {{ request.user.username }}{% endblock %}
+
+{% block header %}Profile{% endblock %}
+
+{% block content %}
+  <div class="profile-card">
+    <h2>{{ request.user.username }}</h2>
+    <p>Tokens: <strong>{{ profile.tokens }}</strong></p>
+    <p><a class="button" href="{% url 'core:buy' %}">Buy tokens</a></p>
+    <h3>Recent messages</h3>
+    <ul class="message-list">
+      {% for msg in messages %}
+        <li><span class="muted">[{{ msg.created_at }}]</span> <strong>{{ msg.role }}</strong>: {{ msg.content }}</li>
+      {% empty %}
+        <li>No messages yet.</li>
+      {% endfor %}
+    </ul>
+    <p><a href="{% url 'core:chat' %}">Back to chat</a></p>
+  </div>
+{% endblock %}

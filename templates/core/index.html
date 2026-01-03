@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome — Chatbot{% endblock %}
+
+{% block header %}Welcome{% endblock %}
+
+{% block content %}
+  <div class="landing">
+    <h2>Welcome to the Chatbot Project</h2>
+    <p>This is a minimal Django scaffold tailored towards building a ChatGPT-like interface.</p>
+    <div class="landing-actions">
+      {% if user.is_authenticated %}
+        <a class="button" href="{% url 'core:chat' %}">Open Chat</a>
+        <a class="button ghost" href="{% url 'core:profile' %}">View Profile</a>
+      {% else %}
+        <a class="button" href="{% url 'core:signup' %}">Sign up</a>
+        <a class="button ghost" href="{% url 'login' %}">Log in</a>
+      {% endif %}
+    </div>
+    <p class="muted">Try <a href="/admin/">Admin</a> after creating a superuser.</p>
+  </div>
+{% endblock %}
